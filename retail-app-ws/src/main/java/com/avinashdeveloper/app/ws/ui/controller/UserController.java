@@ -28,7 +28,7 @@ public class UserController {
         BeanUtils.copyProperties(userDetails, userDto);//copyProperties(src, target)
         UserDto createdUser = userService.createUser(userDto);
         BeanUtils.copyProperties(createdUser, returnValue);
-        return null;
+        return returnValue;
     }
 
     @PutMapping
