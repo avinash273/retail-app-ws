@@ -96,6 +96,6 @@ public class UserEntity implements Serializable {
     private String emailVerificationToken;
 
     @Column(nullable = false)
-    private boolean emailVerificationStatus;
+    private Boolean emailVerificationStatus = false;
 
 }
