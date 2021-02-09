@@ -4,6 +4,7 @@ import com.avinashdeveloper.app.ws.UserRepository;
 import com.avinashdeveloper.app.ws.io.entity.UserEntity;
 import com.avinashdeveloper.app.ws.service.UserService;
 import com.avinashdeveloper.app.ws.shared.dto.UserDto;
+import com.avinashdeveloper.app.ws.shared.dto.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    Utils utils;
 
     @Override
     public UserDto createUser(UserDto user) {
@@ -24,7 +28,9 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
         userEntity.setEncryptedPassword("test");
-        userEntity.setUserId("testUserId");
+
+        String publicUserId = utils.generateUserId(20);
+        userEntity.setUserId(publicUserId);
 
         UserEntity storedUserDetails = userRepository.save(userEntity);
 
